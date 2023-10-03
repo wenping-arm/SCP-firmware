@@ -4,8 +4,6 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 #
-# CMakeLists.txt Template file
-#
 
 set(TEST_SRC mod_mpmm)
 set(TEST_FILE mod_mpmm)
@@ -15,7 +13,6 @@ set(UNIT_TEST_TARGET mod_${TEST_MODULE}_unit_test)
 set(MODULE_SRC ${MODULE_ROOT}/${TEST_MODULE}/src)
 set(MODULE_INC ${MODULE_ROOT}/${TEST_MODULE}/include)
 
-#list(APPEND OTHER_MODULE_INC ${MODULE_ROOT}/<dependencies>/include)
 list(APPEND OTHER_MODULE_INC ${MODULE_ROOT}/scmi_perf/include)
 list(APPEND OTHER_MODULE_INC ${MODULE_ROOT}/power_domain/include)
 

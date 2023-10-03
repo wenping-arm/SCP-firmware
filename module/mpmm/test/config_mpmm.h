@@ -7,15 +7,14 @@
  * config_template.h Template file
  */
 #include <mpmm.h>
+
 #include <mod_mpmm.h>
 
-//#include <fwk_id.h>
 #include <fwk_macros.h>
-//#include <fwk_module.h>
 #include <fwk_module_idx.h>
 
-#define NUM_OF_MPMM_GEARS   1
-#define DEFAULT_PERF_LIMIT  0xA5A5
+#define NUM_OF_MPMM_GEARS  1
+#define DEFAULT_PERF_LIMIT 0xFFFFFFFF
 
 enum fake_mpmm_element_idx {
     FAKE_MOD_MPMM_ELEM_0,
@@ -48,7 +47,7 @@ static const struct mod_mpmm_core_config fake_core_config = {
 };
 
 static struct mod_mpmm_pct_table fake_pct_table[FAKE_PCT_TABLE_COUNT] = {
-    [FAKE_PCT_TALBE_DEFAULT] = { 
+    [FAKE_PCT_TALBE_DEFAULT] = {
         .cores_online = 1,
         .default_perf_limit = DEFAULT_PERF_LIMIT,
         .num_perf_limits = 2,
@@ -74,54 +73,46 @@ static struct mod_mpmm_pct_table fake_pct_table[FAKE_PCT_TABLE_COUNT] = {
     },
 };
 
-/*
-    [FAKE_PCT_TALBE_DEFAULT] = { 
-        .cores_online = 1,
-        .default_perf_limit = 2612 * 1000000UL,
-        .num_perf_limits = 2,
-        .threshold_perf = { {
-                              .threshold_bitmap = 0x2,
-                              .perf_limit = 2612 * 1000000UL,
-                            },
-                            {
-                              .threshold_bitmap = 0x1,
-                              .perf_limit = 3047 * 1000000UL,
-                            },
-                          }
-    },
-*/
-
 static struct mod_mpmm_domain_config fake_domain_conf[FAKE_MOD_MPMM_DOM_COUNT] = {
-    [FAKE_MOD_MPMM_DOM_DEFAULT] = {
-        .core_config = &fake_core_config,
-        .pct = fake_pct_table,
-        .pct_size = FWK_ARRAY_SIZE(fake_pct_table),
-        .btc = 1,
-        .num_threshold_counters = 1,
-        .perf_id = FWK_ID_ELEMENT_INIT(FWK_MODULE_IDX_DVFS, 0)
-    },
-    [FAKE_MOD_MPMM_DOM_MAX_THRESHOLD_COUNT] = {
-        .core_config = &fake_core_config,
-        .pct = fake_pct_table,
-        .pct_size = FWK_ARRAY_SIZE(fake_pct_table),
-        .btc = 0,
-        .num_threshold_counters = (MPMM_MAX_THRESHOLD_COUNT + 1),
-        .perf_id = FWK_ID_ELEMENT_INIT(FWK_MODULE_IDX_DVFS, 0)
-    },
-    [FAKE_MOD_MPMM_DOM_NUM_THRESHOLD_NOT_EQUAL] = {
-        .core_config = &fake_core_config,
-        .pct = fake_pct_table,
-        .pct_size = FWK_ARRAY_SIZE(fake_pct_table),
-        .btc = 0,
-        .num_threshold_counters = (NUM_OF_MPMM_GEARS + 1),
-        .perf_id = FWK_ID_ELEMENT_INIT(FWK_MODULE_IDX_DVFS, 0)
-    },
-    [FAKE_MOD_MPMM_DOM_NO_PCT_ENTRY] = {
-        .core_config = &fake_core_config,
-        .pct = NULL,
-        .pct_size = 0,
-        .btc = 0,
-        .num_threshold_counters = (NUM_OF_MPMM_GEARS + 1),
-        .perf_id = FWK_ID_ELEMENT_INIT(FWK_MODULE_IDX_DVFS, 0)
-    },
+    [FAKE_MOD_MPMM_DOM_DEFAULT] = { .core_config = &fake_core_config,
+                                    .pct = fake_pct_table,
+                                    .pct_size = FWK_ARRAY_SIZE(fake_pct_table),
+                                    .btc = 1,
+                                    .num_threshold_counters = 1,
+                                    .perf_id = FWK_ID_ELEMENT_INIT(
+                                        FWK_MODULE_IDX_DVFS,
+                                        0) },
+    [FAKE_MOD_MPMM_DOM_MAX_THRESHOLD_COUNT] = { .core_config =
+                                                    &fake_core_config,
+                                                .pct = fake_pct_table,
+                                                .pct_size = FWK_ARRAY_SIZE(
+                                                    fake_pct_table),
+                                                .btc = 0,
+                                                .num_threshold_counters =
+                                                    (MPMM_MAX_THRESHOLD_COUNT +
+                                                     1),
+                                                .perf_id = FWK_ID_ELEMENT_INIT(
+                                                    FWK_MODULE_IDX_DVFS,
+                                                    0) },
+    [FAKE_MOD_MPMM_DOM_NUM_THRESHOLD_NOT_EQUAL] = { .core_config =
+                                                        &fake_core_config,
+                                                    .pct = fake_pct_table,
+                                                    .pct_size = FWK_ARRAY_SIZE(
+                                                        fake_pct_table),
+                                                    .btc = 0,
+                                                    .num_threshold_counters =
+                                                        (NUM_OF_MPMM_GEARS + 1),
+                                                    .perf_id =
+                                                        FWK_ID_ELEMENT_INIT(
+                                                            FWK_MODULE_IDX_DVFS,
+                                                            0) },
+    [FAKE_MOD_MPMM_DOM_NO_PCT_ENTRY] = { .core_config = &fake_core_config,
+                                         .pct = NULL,
+                                         .pct_size = 0,
+                                         .btc = 0,
+                                         .num_threshold_counters =
+                                             (NUM_OF_MPMM_GEARS + 1),
+                                         .perf_id = FWK_ID_ELEMENT_INIT(
+                                             FWK_MODULE_IDX_DVFS,
+                                             0) },
 };
